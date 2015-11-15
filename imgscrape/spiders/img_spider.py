@@ -12,11 +12,25 @@ class ImgSpider(CrawlSpider):
 
     name = 'img'
     # allowed_domains = ['http://www.huffingtonpost.com']
-    start_urls = ['http://www.huffingtonpost.com']
+    start_urls = [
+        'http://www.cnn.com',
+        'http://www.huffingtonpost.com',
+        'http://www.msnbc.com',
+        'http://www.foxnews.com'
+    ]
 
-    rules = (Rule(LinkExtractor(allow=()), callback='link_callback'),)
+    deny = [
+        'facebook',
+        'audible',
+        'legal'
+    ]
 
-    def link_callback(self, response): 
+    rules = (Rule(LinkExtractor(allow=(), deny=deny), callback='item_callback', process_links='link_callback', follow=True),)
+
+    def link_callback(self, links):
+    	return links
+
+    def item_callback(self, response):
         item = ImgscrapeItem()
         urls = response.css('img').xpath('@src').extract()
         item['image_urls'] = [url for url in urls if validators.url(url)]
