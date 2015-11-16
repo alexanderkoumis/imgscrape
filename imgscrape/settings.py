@@ -14,13 +14,16 @@ BOT_NAME = 'imgscrape'
 SPIDER_MODULES = ['imgscrape.spiders']
 NEWSPIDER_MODULE = 'imgscrape.spiders'
 
+RETRY_ENABLED = False
+REDIRECT_ENABLED = False
+REACTOR_THREADPOOL_MAXSIZE = 20
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'imgscrape (+http://www.yourdomain.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 32
-
+CONCURRENT_REQUESTS = 100 
+# LOG_LEVEL = 'INFO'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
@@ -67,7 +70,7 @@ ITEM_PIPELINES = {
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-AUTOTHROTTLE_ENABLED = True
+#AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -85,11 +88,11 @@ HTTPCACHE_ENABLED = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-AWS_ACCESS_KEY_ID = 'DONTCOMMITTHISTOGITHUB'
-AWS_SECRET_ACCESS_KEY = 'DONTCOMMITTHISTOGITHUB'
+# AWS_ACCESS_KEY_ID = ''
+# AWS_SECRET_ACCESS_KEY = '' 
 
 from os.path import dirname, join, realpath
+IMAGES_STORE = join(dirname(realpath(__file__)), 'output')
 
-# IMAGES_STORE = join(dirname(realpath(__file__)), 'output')
-IMAGES_STORE = 's3://facedata/scraped/'
+IMAGES_MIN_HEIGHT = 256
+IMAGES_MIN_WIDTH = 256

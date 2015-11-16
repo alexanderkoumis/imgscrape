@@ -22,7 +22,8 @@ class ImgSpider(CrawlSpider):
     deny = [
         'facebook',
         'audible',
-        'legal'
+        'legal',
+	'pinimg'
     ]
 
     rules = (Rule(LinkExtractor(allow=(), deny=deny), callback='item_callback', process_links='link_callback', follow=True),)
